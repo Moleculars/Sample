@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject>Bb.Workflows.Program</StartupObject>
+    <RootNamespace>Bb.Workflows</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.beard.Workflow.AntlrParser\Black.Beard.Workflows.AntlrParser.csproj" />
+    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.Beard.Workflows.Models\Black.Beard.Workflows.Models.csproj" />
+    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\WorkflowSerializers\Black.Beard.Workflows.serializers.csproj" />
+    <ProjectReference Include="..\Black.Beard.CommonHost\CommonHost.csproj" />
+    <ProjectReference Include="..\Black.Beard.ComponentModel.Attributes\Black.Beard.ComponentModel.Attributes.csproj" />
+    <ProjectReference Include="..\Black.Beard.ComponentModel\Black.Beard.ComponentModel.csproj" />
+    <ProjectReference Include="..\Black.Beard.Web.Contracts\Black.Beard.Web.Contracts.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties configurations_4workflows_1json__JsonSchema="..\Schemas\Workflows.json" appsettings_1json__JsonSchema="Schemas\appsettings.json" /></VisualStudio></ProjectExtensions>
+
+</Project>

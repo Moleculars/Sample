@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "EngineConfigurationModel": {
+      "id": "EngineConfigurationModel",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Domains": {
+          "id": "EngineProviderConfigurations",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "id": "EngineProviderConfiguration",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Domain": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "Path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "EngineProviderConfiguration": {
+      "$ref": "#/definitions/EngineProviderConfiguration"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "Workflows": {
+      "$ref": "#/definitions/EngineConfigurationModel"
+    }
+  }
+}

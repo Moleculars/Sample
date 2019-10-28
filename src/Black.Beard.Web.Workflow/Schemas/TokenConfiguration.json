@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "TokenConfiguration": {
+      "id": "TokenConfiguration",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "AllApisAreSecurized": {
+          "type": "boolean"
+        },
+        "SecurityKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Issuer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Audience": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ValidateAudience": {
+          "type": "boolean"
+        },
+        "ValidateIssuer": {
+          "type": "boolean"
+        },
+        "validateIssuerSigningKey": {
+          "type": "boolean"
+        },
+        "ExpiryInMinutes": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "TokenConfiguration": {
+      "$ref": "#/definitions/TokenConfiguration"
+    }
+  }
+}
