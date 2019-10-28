@@ -13,7 +13,7 @@
 *.userprefs
 
 # others repositories
-Src_Workflow/
+Src_Workflow/Workflow
 
 # Build results
 [Dd]ebug/
