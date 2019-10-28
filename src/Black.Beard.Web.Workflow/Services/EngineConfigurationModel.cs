@@ -15,10 +15,8 @@ namespace Bb.Workflows.Services
 
         public EngineConfigurationModel()
         {
-            EngineConfigurationModel.Instance = this;
-        }
 
-        public static EngineConfigurationModel Instance { get; private set; }
+        }
 
         public EngineProviderConfigurations Domains { get; set; }
 

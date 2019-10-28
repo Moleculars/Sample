@@ -1,0 +1,273 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "BrokerConfiguration": {
+      "id": "BrokerConfiguration",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Servers": {
+          "id": "ServerBrokerConfiguration[]",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "id": "ServerBrokerConfiguration",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Name": {
+                "description": "Name key for identification",
+                "type": "string"
+              },
+              "Hostname": {
+                "description": "Broker hostname",
+                "type": "string"
+              },
+              "Port": {
+                "description": "Broker connection port.",
+                "type": "integer"
+              },
+              "VirtualHost": {
+                "description": "Virtual host, for manage environment",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "UserName": {
+                "description": "RabbitMQ login.",
+                "type": "string"
+              },
+              "Password": {
+                "description": "RabbitMQ password",
+                "type": "string"
+              },
+              "ConnectionTimeoutSeconds": {
+                "description": "Should make connection attempts for this long. It crashes if no connections could be created within this timeframe. If 0, only one attempt is done.",
+                "type": "integer"
+              },
+              "ConnectionRetryIntervalSeconds": {
+                "description": "How often we should attempt to connect.",
+                "type": "integer"
+              },
+              "MaxReplayCount": {
+                "description": "MaxReplayCount",
+                "type": "integer"
+              },
+              "UseLogger": {
+                "description": "Use Logger when thrown exception",
+                "type": "boolean"
+              },
+              "ManagementPort": {
+                "description": "Only needed for purging queues. Null means management is disabled. Set to null in production.",
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "ConfigAllowed": {
+                "description": "Set to false if the user does not have permissions to change broker configuration",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "Name",
+              "Hostname",
+              "UserName",
+              "Password"
+            ]
+          }
+        },
+        "Publishers": {
+          "id": "BrokerPublishParameter[]",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "id": "BrokerPublishParameter",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "DeliveryMode": {
+                "description": "Whether the messages published will be persistent between reboots or not.",
+                "type": "string",
+                "enum": [
+                  "NonPersistent",
+                  "Persistent"
+                ]
+              },
+              "DefaultRountingKey": {
+                "description": "If no RountingKey name is specified at publish time, use this one. Can be null. Especially useful for default exchange publishers aimed at a specific queue.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "Name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "ExchangeName": {
+                "description": "Exchange to bind to. Empty/null for default exchange.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "ExchangeType": {
+                "description": "Exchange type. Used to create the exchange if it does not exist and to interpret the routing keys.",
+                "type": "string",
+                "enum": [
+                  "DIRECT",
+                  "TOPIC",
+                  "FANOUT"
+                ]
+              },
+              "ServerName": {
+                "description": "Server name configuration.",
+                "type": "string"
+              },
+              "ExpirationMessage": {
+                "description": "Expiration message",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "ServerName"
+            ]
+          }
+        },
+        "Subscribers": {
+          "id": "BrokerSubscriptionParameter[]",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "id": "BrokerSubscriptionParameter",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "AcceptedRoutingKeys": {
+                "id": "List`1",
+                "description": "The routing keys to accept (the \"binding keys\"). Leave empty for all. Ignored for default exchange.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "StorageQueueName": {
+                "description": "The subscription yields messages which are stored in a queue before they can be consumed by the client message processor.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "Durable": {
+                "description": "True: subscription stays on even if the consumers are dead. By default the value is true",
+                "type": "boolean"
+              },
+              "MaxParallelism": {
+                "description": "For a single process (there may be many processes!) never process more than MaxParallelism messages concurrently. By default the value is 2",
+                "type": "integer"
+              },
+              "MaxTimeWaitingToClose": {
+                "description": "time duration for waiting all process finish before close dirty. By default the value is 10",
+                "type": "integer"
+              },
+              "MaxReplayCount": {
+                "description": "How many times the message may be requeued before being labeled a poison message. -1 to disable. By default the value is 20",
+                "type": "integer"
+              },
+              "ReplayHeaderKey": {
+                "description": "The header used for the poison message mechanism.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "WatchDog": {
+                "description": "interval in seconds for survey the subscriber and prevent network cut.",
+                "type": "integer"
+              },
+              "Name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "ExchangeName": {
+                "description": "Exchange to bind to. Empty/null for default exchange.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "ExchangeType": {
+                "description": "Exchange type. Used to create the exchange if it does not exist and to interpret the routing keys.",
+                "type": "string",
+                "enum": [
+                  "DIRECT",
+                  "TOPIC",
+                  "FANOUT"
+                ]
+              },
+              "ServerName": {
+                "description": "Server name configuration.",
+                "type": "string"
+              },
+              "ExpirationMessage": {
+                "description": "Expiration message",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "ServerName"
+            ]
+          }
+        }
+      }
+    },
+    "BrokerPublishParameter": {
+      "$ref": "#/definitions/BrokerPublishParameter"
+    },
+    "BrokerSubscriptionParameter": {
+      "$ref": "#/definitions/BrokerSubscriptionParameter"
+    },
+    "ServerBrokerConfiguration": {
+      "$ref": "#/definitions/ServerBrokerConfiguration"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "Brokers": {
+      "$ref": "#/definitions/BrokerConfiguration"
+    }
+  }
+}

@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Black.Beard.Brokers.Contracts" Version="1.0.11" />
+    <PackageReference Include="Black.Beard.RabbitMq" Version="1.0.11" />
+    <PackageReference Include="Black.Beard.Sdk.Brokers.Configurations" Version="1.0.11" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />

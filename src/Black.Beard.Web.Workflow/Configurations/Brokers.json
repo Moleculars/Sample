@@ -1,0 +1,48 @@
+{
+
+  "Brokers": {
+
+    "Servers": [
+
+      // QosPrefetchCount=1;
+      {
+        "Name": "srv1",
+        "Hostname": "localhost",
+        "UserName": "guest",
+        "Password": "guest",
+        "Port": 5672,
+        "ConnectionTimeoutSeconds": 50,
+        "ConnectionRetryIntervalSeconds": 50,
+        "MaxReplayCount": 50,
+        "UseLogger": true,
+        "ManagementPort": 15672,
+        "ConfigAllowed": true
+      }
+    ],
+
+    "Publishers": [
+      {
+        "Name": "ActionBusPublisher",
+        "ServerName": "srv1",
+        "DeliveryMode": "Persistent",
+        "DefaultRountingKey": "ActionBusPublisher",
+        "ExchangeName": "ActionBusPublisherExchange",
+        "ExchangeType": "DIRECT"
+      }
+    ],
+
+    "Subscribers": [
+      {
+        "Name": "ActionBusSubscriber",
+        "ServerName": "srv1",
+        "StorageQueueName": "subscriberActionQueue",
+        "Durable": true,
+        "MaxParallelism": 20,
+        "ExchangeName": "",
+        "ExchangeType": "DIRECT"
+      }
+    ]
+
+  }
+
+}

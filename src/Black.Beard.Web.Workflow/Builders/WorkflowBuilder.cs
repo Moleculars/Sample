@@ -1,4 +1,5 @@
-﻿using Bb.Web;
+﻿using Bb.Brokers;
+using Bb.Web;
 using Bb.Workflows.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,7 @@ namespace Bb.Workflows.Builders
         public void Initialize(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton(typeof(WebEngineProvider), typeof(WebEngineProvider));
+            services.AddSingleton(typeof(EngineGeneratorConfiguration), typeof(EngineGeneratorConfiguration));
         }
 
 

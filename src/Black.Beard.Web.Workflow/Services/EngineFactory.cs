@@ -1,5 +1,7 @@
-﻿using Bb.Workflows;
+﻿using Bb.Brokers;
+using Bb.Workflows;
 using Bb.Workflows.Models;
+using System;
 
 namespace Bb.Workflows.Services
 {
@@ -10,11 +12,22 @@ namespace Bb.Workflows.Services
         /// Ctor
         /// </summary>
         /// <param name="path"></param>
-        public EngineFactory(string path)
+        public EngineFactory(EngineGeneratorConfiguration configuration)
+        {
+            this._engineCreator = new EngineGenerator<RunContext>(configuration);
+        }
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="path"></param>
+        public EngineFactory SetRootPath(string path)
         {
             this._path = path;
-            this._engineCreator = new EngineGenerator<RunContext>(this._path);
+            this._engineCreator.SetPath(this._path);
+            return this;
         }
+
 
         /// <summary>
         /// Return current <see cref="WorkflowEngine"/>
@@ -74,7 +87,7 @@ namespace Bb.Workflows.Services
         }
 
         private volatile object _lock1 = new object();
-        private readonly string _path;
+        private string _path;
         private readonly EngineGenerator<RunContext> _engineCreator;
         private WorkflowEngine _engine;
 

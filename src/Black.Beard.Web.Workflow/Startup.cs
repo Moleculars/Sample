@@ -19,7 +19,10 @@ namespace Bb.Workflows
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
-        }
+
+            //services.AddHostedService<>
+
+        }        
 
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

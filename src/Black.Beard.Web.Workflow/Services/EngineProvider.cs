@@ -1,4 +1,5 @@
-﻿using Bb.Workflows;
+﻿using Bb.Brokers;
+using Bb.Workflows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +13,16 @@ namespace Bb.Workflows.Services
     public class EngineProvider : IDisposable
     {
 
-        public EngineProvider()
+        public EngineProvider(EngineGeneratorConfiguration configuration)
         {
+            this._configuration = configuration;
             this._last = new Queue<WorkflowEngine>();
         }
 
 
         public void Add(string domain, string path)
         {
-            var f = new EngineFactory(path);
+            var f = new EngineFactory(this._configuration);
             if (_factories.TryGetValue(domain, out EngineFactory factory))
             {
                 this._last.Enqueue(factory.Clean());
@@ -102,6 +104,9 @@ namespace Bb.Workflows.Services
         public int WaitMinuteForExit { get; set; } = 2;
 
         private Dictionary<string, EngineFactory> _factories = new Dictionary<string, EngineFactory>();
+
+        public EngineGeneratorConfiguration _configuration { get; }
+
         private readonly Queue<WorkflowEngine> _last;
         private volatile object _lock2 = new object();
 

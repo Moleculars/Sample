@@ -1,8 +1,10 @@
-﻿using Bb.ComponentModel;
+﻿using Bb.Brokers;
+using Bb.ComponentModel;
 using Bb.Workflows.Converters;
 using Bb.Workflows.Models;
 using Bb.Workflows.Models.Configurations;
 using Bb.Workflows.Outputs;
+using Bb.Workflows.Outputs.Mom;
 using Bb.Workflows.Parser;
 using Bb.Workflows.Templates;
 using System;
@@ -20,18 +22,26 @@ namespace Bb.Workflows.Services
         where TContext : RunContext, new()
     {
 
-        public EngineGenerator(string path)
+        public EngineGenerator(EngineGeneratorConfiguration configuration)
         {
+
+            this._configuration = configuration;
 
             this._methods = new Dictionary<string, MethodInfo>();
             this.serializer = new JsonWorkflowSerializer();
-            this._path = path;
 
             this._templateTypes = new Type[] { typeof(TemplatesProviders) };
             this._metadataTypes = new Type[] { typeof(MatadataProviders) };
 
-            AddFolderToDiscovery(_path);
+        }
 
+        public EngineGenerator<TContext> SetPath(string path)
+        {
+            this._path = path;
+            AddFolderToDiscovery(_path);
+            
+            return this;
+        
         }
 
         public WorkflowEngine CreateEngine()
@@ -86,10 +96,16 @@ namespace Bb.Workflows.Services
         {
 
             return new SetPropertiesOutputAction(
-                   //new PushBusActionOutputActionInMemory(storage,
-                   //    new PushModelOutputActionInMemory(storage)
-                   //)
-                   );
+                new PushBusActionOutputAction(
+                    //new PushBusActionOutputActionInMemory(storage,
+                    //    new PushModelOutputActionInMemory(storage)
+                    //)
+                )
+                {
+                    Brokers = this._configuration.BrokerConfiguration.GetFactory(),
+                    PublisherName = this._configuration.EngineGeneratorModel.ActionBusPublisher,
+                }
+            );
 
         }
 
@@ -193,12 +209,11 @@ namespace Bb.Workflows.Services
 
 
         private IWorkflowSerializer serializer;
-        private readonly string _path;
+        private string _path;
         private readonly Type[] _templateTypes;
         private readonly Type[] _metadataTypes;
+        private readonly EngineGeneratorConfiguration _configuration;
         private readonly Dictionary<string, MethodInfo> _methods;
-
-
     }
 
 
