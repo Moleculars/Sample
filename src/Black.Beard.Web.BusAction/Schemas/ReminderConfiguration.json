@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "ReminderConfiguration": {
+      "id": "ReminderConfiguration",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ConnectionString": {
+          "description": "Connection string for connect to reminder storage",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WakeUpIntervalSeconds": {
+          "description": "Wake up interval in seconds for check expirated reminders",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "ReminderConfiguration": {
+      "$ref": "#/definitions/ReminderConfiguration"
+    }
+  }
+}

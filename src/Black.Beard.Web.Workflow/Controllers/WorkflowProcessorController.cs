@@ -16,7 +16,7 @@ namespace Bb.Workflows.Controllers
             this._provider = provider;        
         }
 
-        [HttpGet("Push/{domain}")]
+        [HttpPost("Push/{domain}")]
         public Task Post(string domain, [FromBody] string payload)
         {
 

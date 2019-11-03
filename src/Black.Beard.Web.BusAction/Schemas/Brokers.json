@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "CustomAccessConfiguration`1",
   "definitions": {
-    "Broker": {
-      "id": "Broker",
+    "BrokerConfiguration": {
+      "id": "BrokerConfiguration",
       "type": [
         "object",
         "null"
@@ -270,7 +270,7 @@
   "type": "object",
   "properties": {
     "Brokers": {
-      "$ref": "#/definitions/Broker"
+      "$ref": "#/definitions/BrokerConfiguration"
     }
   }
 }

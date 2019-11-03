@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "ActionBusBrokerConfiguration": {
+      "id": "ActionBusBrokerConfiguration",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ActionBusQueueConsumer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DeadQueue": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AcknowledgeQueue": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "EngineGenerator": {
+      "$ref": "#/definitions/ActionBusBrokerConfiguration"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+
+  "ReminderConfiguration": {
+    "ConnectionString": "Data Source=L00280\\SQLEXPRESS;Initial Catalog=Reminder;Integrated Security=True",
+    "WakeUpIntervalSeconds": 20
+  }
+}

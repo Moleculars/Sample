@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Black.Beard.ComponentModel.Attributes\Black.Beard.ComponentModel.Attributes.csproj" />
-    <ProjectReference Include="..\Black.Beard.ComponentModel\Black.Beard.ComponentModel.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Black.Beard.ComponentModel\Src\Black.Beard.ComponentModel.Attributes\Black.Beard.ComponentModel.Attributes.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Black.Beard.ComponentModel\Src\Black.Beard.ComponentModel\Black.Beard.ComponentModel.csproj" />
     <ProjectReference Include="..\Black.Beard.Logs.Serilog\Black.Beard.Logs.Serilog.csproj" />
     <ProjectReference Include="..\Black.Beard.Security.Bearer\Black.Beard.Security.Bearer.csproj" />
     <ProjectReference Include="..\Black.Beard.Web.Contracts\Black.Beard.Web.Contracts.csproj" />

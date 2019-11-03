@@ -1,5 +1,6 @@
 ﻿using Bb.Brokers;
 using Bb.ComponentModel;
+using Bb.Dao;
 using Bb.Workflows.Converters;
 using Bb.Workflows.Models;
 using Bb.Workflows.Models.Configurations;
@@ -7,6 +8,7 @@ using Bb.Workflows.Outputs;
 using Bb.Workflows.Outputs.Mom;
 using Bb.Workflows.Parser;
 using Bb.Workflows.Templates;
+using Black.Beard.Workflows.Outputs.Sql;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,6 +27,7 @@ namespace Bb.Workflows.Services
         public EngineGenerator(EngineGeneratorConfiguration configuration)
         {
 
+            this.Services = configuration.Services;
             this._configuration = configuration;
 
             this._methods = new Dictionary<string, MethodInfo>();
@@ -39,9 +42,9 @@ namespace Bb.Workflows.Services
         {
             this._path = path;
             AddFolderToDiscovery(_path);
-            
+
             return this;
-        
+
         }
 
         public WorkflowEngine CreateEngine()
@@ -50,6 +53,7 @@ namespace Bb.Workflows.Services
             {
                 Serializer = this.serializer,
                 Processor = CreateWorkflowProcessor(),
+                Locker = new LockerSqlServer((SqlManager)Services.GetService(typeof(SqlManager))),
             };
         }
 
@@ -76,6 +80,7 @@ namespace Bb.Workflows.Services
                 OutputActions = CreateOutput,
                 Templates = template,
                 Metadatas = metadatas,
+                Services = this.Services,
             };
 
             return processor;
@@ -85,9 +90,14 @@ namespace Bb.Workflows.Services
         public List<Workflow> LoadExistingWorkflowsByExternalId(string key)
         {
 
-            //(key) => storage.GetBy<Workflow, string>(key, c => c.ExternalId).ToList()*;
+            SqlManager sql = (SqlManager)Services.GetService(typeof(SqlManager));
+            Func<DynObject, string> func = (d) => DynObjectSerializer.Serialize(d).ToString(Newtonsoft.Json.Formatting.None);
+            var store = new WorkflowStoreSql(sql, func);
 
-            return new List<Workflow>();
+            List<Workflow> workflows = store.LoadByExternalId(key);
+
+            return workflows;
+
         }
 
 
@@ -95,17 +105,19 @@ namespace Bb.Workflows.Services
         public OutputAction CreateOutput()
         {
 
-            return new SetPropertiesOutputAction(
-                new PushBusActionOutputAction(
-                    //new PushBusActionOutputActionInMemory(storage,
-                    //    new PushModelOutputActionInMemory(storage)
-                    //)
-                )
-                {
-                    Brokers = this._configuration.BrokerConfiguration.GetFactory(),
-                    PublisherName = this._configuration.EngineGeneratorModel.ActionBusPublisher,
-                }
-            );
+            SqlManager sql = (SqlManager)Services.GetService(typeof(SqlManager));
+
+            Func<DynObject, string> func = (d) => DynObjectSerializer.Serialize(d).ToString(Newtonsoft.Json.Formatting.None);
+
+            var store = new SqlserverActionOutputAction(new WorkflowStoreSql(sql, func));
+
+            var bus = new PushBusActionOutputAction(store)
+            {
+                Brokers = this._configuration.Broker,
+                PublisherName = this._configuration.EngineGeneratorModel.PublishToAction,
+            };
+
+            return new SetPropertiesOutputAction(bus);
 
         }
 
@@ -122,14 +134,17 @@ namespace Bb.Workflows.Services
                 ;
 
             foreach (var method in methods)
-                if (method.GetCustomAttribute(typeof(System.ComponentModel.DisplayNameAttribute)) is System.ComponentModel.DisplayNameAttribute attribute)
-                {
-                    if (this._methods.ContainsKey(attribute.DisplayName))
-                        Trace.WriteLine($"a method named {attribute.DisplayName} in {method.ToString() } already exists. It is ignored");
-                    else
-                        this._methods.Add(attribute.DisplayName, method);
-                }
-
+            {
+                var parameters = method.GetParameters();
+                if (parameters.Length > 0 && typeof(RunContext).IsAssignableFrom(parameters[0].ParameterType))
+                    if (method.GetCustomAttribute(typeof(System.ComponentModel.DisplayNameAttribute)) is System.ComponentModel.DisplayNameAttribute attribute)
+                    {
+                        if (this._methods.ContainsKey(attribute.DisplayName))
+                            Trace.WriteLine($"a method named {attribute.DisplayName} in {method.ToString() } already exists. It is ignored");
+                        else
+                            this._methods.Add(attribute.DisplayName, method);
+                    }
+            }
         }
 
         private void AddFolderToDiscovery(string path)
@@ -214,6 +229,7 @@ namespace Bb.Workflows.Services
         private readonly Type[] _metadataTypes;
         private readonly EngineGeneratorConfiguration _configuration;
         private readonly Dictionary<string, MethodInfo> _methods;
+        private readonly IServiceProvider Services;
     }
 
 

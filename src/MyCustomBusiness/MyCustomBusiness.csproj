@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\Black.Beard.Workflows.Models\Black.Beard.Workflows.Models.csproj" />
     <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.Beard.Workflows.Models\Black.Beard.Workflows.Models.csproj" />
   </ItemGroup>
 

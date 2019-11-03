@@ -1,0 +1,11 @@
+{
+
+  "TokenConfiguration": {
+
+    "SecurityKey": "F1B4B508D7234CA1A98F9CD0976029FD{B3E7956C82EA4A179CA32DA9335CF00D}",
+    "Issuer": "Molecular.Option.Server",
+    "Audience": "Molecular.Option.Server"
+
+  }
+
+}

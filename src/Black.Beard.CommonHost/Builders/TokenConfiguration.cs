@@ -5,7 +5,7 @@ using Bb.Security.Jwt;
 namespace Bb.Builders
 {
 
-    [ExposeClass(Context = ConstantsCore.Configuration, Filename = "TokenConfiguration", ExposedType =typeof(JwtTokenConfiguration), LifeCycle = IocScopeEnum.Singleton )]
+    [ExposeClass(Context = ConstantsCore.Configuration, Name = "TokenConfiguration", ExposedType =typeof(JwtTokenConfiguration), LifeCycle = IocScopeEnum.Singleton )]
     public class TokenConfiguration : JwtTokenConfiguration
     {
 

@@ -9,11 +9,44 @@
         "null"
       ],
       "properties": {
-        "ActionBusPublisher": {
+        "PublishToAction": {
+          "description": "Name of the publisher for push action",
           "type": [
             "string",
             "null"
           ]
+        },
+        "WorkflowQueue": {
+          "description": "Name of the queue of incoming event of workflow",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "PublishDeadQueueWorkflow": {
+          "description": "Name of the dead queue when incoming event integration process fail more of maximum retry",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DomainHeader": {
+          "description": "header name for store domain workflow",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "CountFailedHeader": {
+          "description": "header name for store count of failed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "MaxRetry": {
+          "description": "max retry on message when process fail. by default the value is 6",
+          "type": "integer"
         }
       }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using Bb;
 using Bb.Builders;
 using Bb.ComponentModel;
+using Bb.ComponentModel.Attributes;
 using Bb.Middleware;
 using Bb.Security.Jwt;
 using Bb.Web;
@@ -52,7 +53,7 @@ namespace Bb.CommonHost
             //foreach (var item in services)
             //    Debug.WriteLine($"{item.ServiceType.ToString()} => {GetText(item)}");
 
-
+            // var vars = Environment.GetEnvironmentVariables();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -73,6 +74,9 @@ namespace Bb.CommonHost
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 ;
+
+            //services.AddRazorPages();
+            //services.AddServerSideBlazor();
 
         }
 
@@ -150,7 +154,6 @@ namespace Bb.CommonHost
                 .UseMiddleware<ReadTokenMiddleware>(app.ApplicationServices.GetService(typeof(JwtTokenConfiguration)))
                 ;
 
-
             foreach (var item in _builderlist)
                 item.Configure(app, env);
 
@@ -169,6 +172,10 @@ namespace Bb.CommonHost
 
             app.UseEndpoints(endpoints =>
             {
+
+                //endpoints.MapBlazorHub();
+                //endpoints.MapFallbackToPage("/_Host");
+
                 try
                 {
                     Trace.WriteLine($"Addings controllers", TraceLevel.Info.ToString());
@@ -182,17 +189,54 @@ namespace Bb.CommonHost
                 }
             });
 
+
+
         }
 
 
         protected virtual void ResolveBuilders(IServiceCollection services)
         {
 
+            // Sort by dependencies
+            List<Type> _types = new List<Type>();
             foreach (var item in Initialization.ExposedServices)
+                PlaceWithDependances(_types, item);
+
+            foreach (var item in _types)
                 _builderlist.Add((IBuilder)Activator.CreateInstance(item));
 
             foreach (var item in _builderlist)
                 item.Initialize(services, Configuration);
+
+        }
+
+        private int PlaceWithDependances(List<Type> types, Type type)
+        {
+
+            if (!types.Contains(type))
+            {
+
+                var p = type.GetCustomAttributes(typeof(DependOfAttribute), true)
+                    .OfType<DependOfAttribute>()
+                    .Select(c => c.Type)
+                    .ToList();
+
+                int index = 0;
+
+                foreach (var item in p)
+                {
+                    var i2 = PlaceWithDependances(types, item);
+                    if (i2 > index)
+                        index = i2 + 1;
+                }
+
+                types.Insert(index, type);
+
+                return index;
+
+            }
+
+            return -1;
 
         }
 

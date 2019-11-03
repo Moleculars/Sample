@@ -14,9 +14,9 @@ namespace Bb.Workflows.Templates
         public static Func<ResultAction, DynObject> Reminder = (r) =>
             DynObject
                 .Create("Name", Constants.PushReminder)
-                .Add("delay", WorkflowClock.Now().AddMinutes(r.Delay).ToString())
-                .Add("canal", (ctx) => "IncomingEvent") // --read configuration where canal can be found
-    ;
+                .Add("delayInMinute", WorkflowClock.Now().AddMinutes(r.Delay).ToString())
+                //.Add("canal", (ctx) => "IncomingEvent") // --read configuration where canal can be found
+            ;
 
 
         public static Func<ResultAction, DynObject> __cancelReminderAction = (r) =>

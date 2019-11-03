@@ -9,13 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.beard.Workflow.AntlrParser\Black.Beard.Workflows.AntlrParser.csproj" />
-    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.Beard.Workflows.Models\Black.Beard.Workflows.Models.csproj" />
-    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\Black.Beard.Workflows.Outputs.Mom\Black.Beard.Workflows.Outputs.Mom.csproj" />
-    <ProjectReference Include="..\..\Src_Workflow\Workflow\Src\WorkflowSerializers\Black.Beard.Workflows.serializers.csproj" />
+    <PackageReference Include="Black.Beard.RabbitMq" Version="1.0.11" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sdk\Black.Beard.ComponentModel\Src\Black.Beard.ComponentModel.Attributes\Black.Beard.ComponentModel.Attributes.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Black.Beard.ComponentModel\Src\Black.Beard.ComponentModel\Black.Beard.ComponentModel.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\Black.beard.Workflow.AntlrParser\Black.Beard.Workflows.AntlrParser.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\Black.Beard.Workflows.Models\Black.Beard.Workflows.Models.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\Black.Beard.Workflows.Outputs.Mom\Black.Beard.Workflows.Outputs.Mom.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\Black.Beard.Workflows.Outputs.Sql\Black.Beard.Workflows.Outputs.Sql.csproj" />
+    <ProjectReference Include="..\..\..\..\Sdk\Workflow\Src\WorkflowSerializers\Black.Beard.Workflows.serializers.csproj" />
     <ProjectReference Include="..\Black.Beard.CommonHost\CommonHost.csproj" />
-    <ProjectReference Include="..\Black.Beard.ComponentModel.Attributes\Black.Beard.ComponentModel.Attributes.csproj" />
-    <ProjectReference Include="..\Black.Beard.ComponentModel\Black.Beard.ComponentModel.csproj" />
     <ProjectReference Include="..\Black.Beard.Web.Contracts\Black.Beard.Web.Contracts.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,15 @@
 {
+
   "EngineGenerator": {
-    "ActionBusPublisher": "ActionBusPublisher"
+
+    "PublishToAction": "PublishToAction",
+
+    "WorkflowQueue": "SubscriberToWorkflow",
+
+    "PublishDeadQueueWorkflow": "PublishToDeadQueueWorkflow"
+
+    
+
   }
 
 }

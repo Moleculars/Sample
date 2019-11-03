@@ -1,0 +1,11 @@
+{
+
+  "ActionBusBrokerConfiguration": {
+
+    "ActionBusQueue": "SubscribeToAction",
+    "AcknowledgeExchange": "PublishToWorkflow",
+    "DeadQueueAction": "PublishToDeadQueueAction"
+
+  }
+
+}

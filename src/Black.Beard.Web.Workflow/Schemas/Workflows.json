@@ -11,6 +11,7 @@
       "properties": {
         "Domains": {
           "id": "EngineProviderConfigurations",
+          "description": "List of workflow configurations by domain",
           "type": [
             "array",
             "null"
@@ -23,12 +24,14 @@
             ],
             "properties": {
               "Domain": {
+                "description": "name of the workflow domain",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "Path": {
+                "description": "path where the workflow configuration can be found",
                 "type": [
                   "string",
                   "null"

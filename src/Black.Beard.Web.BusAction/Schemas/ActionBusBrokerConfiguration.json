@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "CustomAccessConfiguration`1",
+  "definitions": {
+    "ActionBusBrokerConfiguration": {
+      "id": "ActionBusBrokerConfiguration",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ActionBusQueue": {
+          "description": "Queue of action action to execute",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DeadQueueAction": {
+          "description": "Queue to push action failed to execute",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AcknowledgeExchange": {
+          "description": "Queue to push result action",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "ActionBusBrokerConfiguration": {
+      "$ref": "#/definitions/ActionBusBrokerConfiguration"
+    }
+  }
+}

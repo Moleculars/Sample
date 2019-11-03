@@ -1,5 +1,6 @@
 ﻿using Bb.ComponentModel;
 using Bb.ComponentModel.Attributes;
+using Bb.ComponentModel.Exceptions;
 using Bb.ComponentModel.Factories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -131,7 +132,7 @@ namespace Bb.Web
             {
                 if (_type.Value.Count == 1)
                 {
-                    var name = _type.Value.First().Filename;
+                    var name = _type.Value.First().Name;
                     WriteSchema(dir, _type.Key, name);
                 }
             }
@@ -153,7 +154,10 @@ namespace Bb.Web
 
             Func<IServiceProvider, object> func = null;
             var typeExposed = attribute.ExposedType ?? type;
-            string name = attribute.Filename;
+            string name = attribute.Name;
+
+            if (!typeExposed.IsAssignableFrom(type))
+                throw new IocException($"Try to register {type.FullName} configuration with contract {typeExposed.FullName}. {typeExposed.Name} can't be assignated from {type.Name}");
 
             var factory = new Factory<object>(type, new Type[] { });
 
@@ -192,7 +196,7 @@ namespace Bb.Web
 
             if (arr.Length > 0)
             {
-                string name = arr[0].Filename;
+                string name = arr[0].Name;
                 object _configuration = Activator.CreateInstance(self, new object[] { });
                 configuration.Bind(name, _configuration);
                 return _configuration;
