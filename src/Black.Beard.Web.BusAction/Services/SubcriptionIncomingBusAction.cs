@@ -2,6 +2,7 @@
 using Bb.Brokers;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,9 +32,8 @@ namespace Bb.BusAction.Services
                 _acknowledgeQueue.Publish(
                     new
                     {
-                        //Order = order,
-                        //order.ExecutedAt,
-                        //Result
+                        context.Utf8Data,
+                        Exception = ctx.Exception
                     }
                 );
 
@@ -49,17 +49,23 @@ namespace Bb.BusAction.Services
                 else
                 {
 
+                    Dictionary<string, object> _headers = new Dictionary<string, object>();
+                    foreach (var item in context.Headers)
+                        _headers.Add(item.Key, System.Text.Encoding.ASCII.GetString((byte[])item.Value));
+
                     _deadQueue.Publish(
                         new
                         {
-                            //Order = order,
-                            //order.ExecutedAt,
-                            //order.PushedAt,
-                            //Exception
-                        }
+                            RepushedAt = ClockActionBus.Now(),
+                            OriginExchange = context.Exchange,
+                            OriginRoutingKey = context.RoutingKey,
+                            ctx.Exception
+                        },
+                        _headers
                     );
 
-                    context.Reject();
+                    context.Commit();
+
 
                 }
 

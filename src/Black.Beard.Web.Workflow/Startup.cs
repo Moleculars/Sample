@@ -22,7 +22,7 @@ namespace Bb.Workflows
             base.ConfigureServices(services);
 
             //services.AddHostedService<>
-            services.AddHostedService<SubcriptionIncomingAdapter>();
+            services.AddHostedService<SubcriptionIncomingEvent>();
 
         }
 

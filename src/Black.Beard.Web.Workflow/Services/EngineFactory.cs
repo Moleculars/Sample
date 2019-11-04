@@ -43,6 +43,8 @@ namespace Bb.Workflows.Services
 
         }
 
+        public bool Initialized { get => this._engine != null; }
+
         /// <summary>
         /// Refresh current <see cref="WorkflowEngine"/>
         /// </summary>

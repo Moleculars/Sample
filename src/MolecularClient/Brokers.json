@@ -1,0 +1,109 @@
+{
+
+  "Brokers": {
+
+    "Servers": [
+
+      // QosPrefetchCount=1;
+      {
+        "Name": "srv1",
+        "Hostname": "localhost",
+        "UserName": "gael",
+        "Password": "gael",
+        "Port": 5672,
+        "ConnectionTimeoutSeconds": 50,
+        "ConnectionRetryIntervalSeconds": 50,
+        "MaxReplayCount": 50,
+        "UseLogger": true,
+        "ManagementPort": 15672,
+        "ConfigAllowed": true
+      }
+    ],
+
+    "Publishers": [
+
+      {
+        "Name": "PublishToWorkflow",
+        "ServerName": "srv1",
+        "DeliveryMode": "Persistent",
+        "DefaultRountingKey": "WorkflowQueue",
+        "ExchangeName": "WorkflowExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "PublishToAction",
+        "ServerName": "srv1",
+        "DeliveryMode": "Persistent",
+        "DefaultRountingKey": "ActionQueue",
+        "ExchangeName": "ActionExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "PublishToDeadQueueWorkflow",
+        "ServerName": "srv1",
+        "DeliveryMode": "Persistent",
+        "DefaultRountingKey": "",
+        "ExchangeName": "DeadQueueWorkflowExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "PublishToDeadQueueAction",
+        "ServerName": "srv1",
+        "DeliveryMode": "Persistent",
+        "DefaultRountingKey": "",
+        "ExchangeName": "DeadQueueActionExchange",
+        "ExchangeType": "DIRECT"
+      }
+
+    ],
+
+    "Subscribers": [
+
+      {
+        "Name": "SubscriberToWorkflow",
+        "ServerName": "srv1",
+        "StorageQueueName": "WorkflowQueue",
+        "Durable": true,
+        "MaxParallelism": 20,
+        "ExchangeName": "WorkflowExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "SubscribeToAction",
+        "ServerName": "srv1",
+        "StorageQueueName": "ActionQueue",
+        "Durable": true,
+        "MaxParallelism": 20,
+        "ExchangeName": "ActionExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "SubscribeToDeadQueueWorkflow",
+        "ServerName": "srv1",
+        "StorageQueueName": "WorkflowDeadQueue",
+        "Durable": true,
+        "MaxParallelism": 20,
+        "ExchangeName": "DeadQueueWorkflowExchange",
+        "ExchangeType": "DIRECT"
+      },
+
+      {
+        "Name": "SubscribeToDeadQueueAction",
+        "ServerName": "srv1",
+        "StorageQueueName": "ActionDeadQueue",
+        "Durable": true,
+        "MaxParallelism": 20,
+        "ExchangeName": "DeadQueueActionExchange",
+        "ExchangeType": "DIRECT"
+      }
+
+    ]
+
+  }
+
+}

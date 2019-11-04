@@ -1,0 +1,15 @@
+{
+
+	"Uuid" : "{3FA2F73C-2F69-4052-ACCE-AC4CC1D44C87}",
+	"Name" : "Event1",
+	"ExternalId" : "3FA2F73C2F694052ACCEAC4CC1D44C87",
+	"CreationDate" : "03/11/2019 13:26:29",
+	"EventDate" : "03/11/2019 13:25:02",
+	"Country" : "France",
+	"age" : 19,
+	"name" : "jojo"
+
+}
+
+	
+	

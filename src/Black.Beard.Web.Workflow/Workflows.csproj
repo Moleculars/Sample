@@ -25,6 +25,6 @@
     <ProjectReference Include="..\Black.Beard.Web.Contracts\Black.Beard.Web.Contracts.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties configurations_4tokenconfiguration_1json__JsonSchema="..\Schemas\TokenConfiguration.json" configurations_4brokers_1json__JsonSchema="..\Schemas\Brokers.json" configurations_4enginegenerator_1json__JsonSchema="..\Schemas\EngineGenerator.json" configurations_4workflows_1json__JsonSchema="..\Schemas\Workflows.json" appsettings_1json__JsonSchema="Schemas\appsettings.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties configurations_4tokenconfiguration_1json__JsonSchema="..\Schemas\TokenConfiguration.json" configurations_4brokers_1json__JsonSchema="..\Schemas\Brokers.json" configurations_4enginegenerator_1json__JsonSchema="..\Schemas\EngineGenerator.json" configurations_4workflows_1json__JsonSchema="..\Schemas\Workflows.json" appsettings_1json__JsonSchema="Schemas\appsettings.json" configurations_4sqlservermanagerconfiguration_1json__JsonSchema="..\Schemas\SqlServerManagerConfiguration.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

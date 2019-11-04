@@ -25,15 +25,17 @@ namespace Bb.Workflows.Services
         public void ApplyConfiguration(IFactoryBroker broker)
         {
 
-            foreach (var server in Servers)
-                broker.Add(server);
+            if (Servers != null)
+                foreach (var server in Servers)
+                    broker.Add(server);
 
-            foreach (var publisher in Publishers)
-                broker.Add(publisher);
+            if (Publishers != null)
+                foreach (var publisher in Publishers)
+                    broker.Add(publisher);
 
-            foreach (var subscriber in Subscribers)
-                broker.Add(subscriber);
-
+            if (Subscribers != null)
+                foreach (var subscriber in Subscribers)
+                    broker.Add(subscriber);
 
         }
 

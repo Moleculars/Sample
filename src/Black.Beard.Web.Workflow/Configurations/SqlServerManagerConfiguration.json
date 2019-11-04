@@ -1,0 +1,9 @@
+{
+
+  "SqlServerManagerConfiguration": 
+  {
+    "ConnectionString": "Data Source=L00280\\SQLEXPRESS;Initial Catalog=Workflow;Integrated Security=True",
+    "ProviderInvariantName": "sqlClient"
+  }
+
+}

@@ -8,7 +8,7 @@ using Bb.Workflows.Outputs;
 using Bb.Workflows.Outputs.Mom;
 using Bb.Workflows.Parser;
 using Bb.Workflows.Templates;
-using Black.Beard.Workflows.Outputs.Sql;
+using Bb.Workflows.Outputs.Sql;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -60,30 +60,36 @@ namespace Bb.Workflows.Services
         private WorkflowProcessor CreateWorkflowProcessor()
         {
 
-            DirectoryInfo d = new DirectoryInfo(_path);
-
-            var configurations = GetConfigurations(d, "workflow");
-
-            var template = new TemplateRepository(_templateTypes)
+            if (!string.IsNullOrEmpty(_path))
             {
-                DefaultAction = TemplateModels.DefaultAction,
-            };
+                DirectoryInfo d = new DirectoryInfo(_path);
 
-            var metadatas = new MetadatRepository(_metadataTypes)
-            {
-                DefaultAction = MetadataModels.DefaultAction.ToDictionary(c => c.Key, c => c.Value),
-            };
+                var configurations = GetConfigurations(d, "workflow");
 
-            WorkflowProcessor processor = new WorkflowProcessor<TContext>(configurations, null)
-            {
-                LoadExistingWorkflowsByExternalId = this.LoadExistingWorkflowsByExternalId,
-                OutputActions = CreateOutput,
-                Templates = template,
-                Metadatas = metadatas,
-                Services = this.Services,
-            };
+                var template = new TemplateRepository(_templateTypes)
+                {
+                    DefaultAction = TemplateModels.DefaultAction,
+                };
 
-            return processor;
+                var metadatas = new MetadatRepository(_metadataTypes)
+                {
+                    DefaultAction = MetadataModels.DefaultAction.ToDictionary(c => c.Key, c => c.Value),
+                };
+
+                WorkflowProcessor processor = new WorkflowProcessor<TContext>(configurations, null)
+                {
+                    LoadExistingWorkflowsByExternalId = this.LoadExistingWorkflowsByExternalId,
+                    OutputActions = CreateOutput,
+                    Templates = template,
+                    Metadatas = metadatas,
+                    Services = this.Services,
+                };
+
+                return processor;
+
+            }
+
+            return null;
 
         }
 

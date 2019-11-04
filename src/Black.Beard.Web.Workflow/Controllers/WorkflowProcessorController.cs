@@ -17,7 +17,7 @@ namespace Bb.Workflows.Controllers
         }
 
         [HttpPost("Push/{domain}")]
-        public Task Post(string domain, [FromBody] string payload)
+        public Task Put(string domain, [FromBody] string payload)
         {
 
             var wrk = _provider.Get(domain);

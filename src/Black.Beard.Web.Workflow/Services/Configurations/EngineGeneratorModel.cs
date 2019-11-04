@@ -21,12 +21,6 @@ namespace Bb.Workflows.Services
         [Description("header name for store domain workflow")]
         public string DomainHeader { get; set; } = "domain";
 
-        [Description("header name for store count of failed")]
-        public string CountFailedHeader { get; set; } = "countFailed";
-
-        [Description("max retry on message when process fail. by default the value is 6")]
-        public int MaxRetry { get; set; } = 6;
-
     }
 
 

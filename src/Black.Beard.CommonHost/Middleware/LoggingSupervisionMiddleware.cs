@@ -21,8 +21,6 @@ namespace Bb.Middleware
             await _next(context);
             sw.Stop();
 
-            var t = context.Request.ToString();
-
             Trace.WriteLine(new { Message = "http query", sw.Elapsed }, TraceLevel.Error.ToString());
 
         }

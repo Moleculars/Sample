@@ -22,7 +22,10 @@ namespace Bb.Workflows.Services
 
         public void Add(string domain, string path)
         {
-            var f = new EngineFactory(this._configuration);
+            
+            var f = new EngineFactory(this._configuration)
+                .SetRootPath(path);
+
             if (_factories.TryGetValue(domain, out EngineFactory factory))
             {
                 this._last.Enqueue(factory.Clean());
@@ -64,7 +67,8 @@ namespace Bb.Workflows.Services
                 {
                     var f = _factories[key];
                     _factories.Remove(key);
-                    this._last.Enqueue(f.Refresh());
+                    if (f.Initialized)
+                        this._last.Enqueue(f.Refresh());
                 }
 
                 RemoveLastEngines();
@@ -76,9 +80,9 @@ namespace Bb.Workflows.Services
         public WorkflowEngine Get(string domain)
         {
 
-            if (!this._stoping)
+            if (this._stoping)
             {
-                Trace.WriteLine($"Current application is stoping. Endservice to provide new Wrokflow engine");
+                Trace.WriteLine($"Current application is stoping. Endservice to provide new Workflow engine");
                 return null;
             }
 
